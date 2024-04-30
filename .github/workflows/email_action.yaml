@@ -1,0 +1,25 @@
+name: Email
+on:
+    push:
+        branches:
+            - '*'
+
+jobs:
+    send_email:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+
+            - name: Send email
+              uses: dawidd6/action-send-mail@v3
+              with:
+                  server_address: smtp.gmail.com
+                  server_port: 465
+                  username: integraciondecodigo@gmail.com
+                  password: qmti mpsz emdz goum
+                  subject: Cambios subidos a rama ${{ github.ref_name }}
+                  body: Se han realizado cambios en la rama ${{ github.ref_name }}.
+                  to: ${{github.event.pusher.email}}
+                  from: integraciondecodigo@gmail.com
+                  secure: true
